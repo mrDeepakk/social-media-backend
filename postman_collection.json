@@ -1,0 +1,119 @@
+
+{
+  "info": {
+    "name": "Social Backend API",
+    "_postman_id": "abcd-1234-efgh-5678",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "baseUrl": "http://localhost:4000"
+  },
+  "item": [
+    {
+      "name": "Signup",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/auth/signup", "host": ["{{baseUrl}}"], "path": ["auth", "signup"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"name\":\"Test User\",\"email\":\"test@example.com\",\"password\":\"password123\"}"
+        }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] },
+        "body": {
+          "mode": "raw",
+          "raw": "{\"email\":\"test@example.com\",\"password\":\"password123\"}"
+        }
+      }
+    },
+    {
+      "name": "Follow User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/users/{{userId}}/follow", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}", "follow"] }
+      }
+    },
+    {
+      "name": "Unfollow User",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/users/{{userId}}/unfollow", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}", "unfollow"] }
+      }
+    },
+    {
+      "name": "Followers List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/users/{{userId}}/followers", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}", "followers"] }
+      }
+    },
+    {
+      "name": "Following List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/users/{{userId}}/following", "host": ["{{baseUrl}}"], "path": ["users", "{{userId}}", "following"] }
+      }
+    },
+    {
+      "name": "Create Post",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "text", "value": "Hello world", "type": "text" },
+            { "key": "media", "type": "file", "src": "" }
+          ]
+        },
+        "url": { "raw": "{{baseUrl}}/posts", "host": ["{{baseUrl}}"], "path": ["posts"] }
+      }
+    },
+    {
+      "name": "Get My Posts",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/posts/me", "host": ["{{baseUrl}}"], "path": ["posts", "me"] }
+      }
+    },
+    {
+      "name": "Get User Posts",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "{{baseUrl}}/posts/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["posts", "user", "{{userId}}"] }
+      }
+    },
+    {
+      "name": "Feed",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": {
+          "raw": "{{baseUrl}}/feed?page=1&limit=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["feed"],
+          "query": [
+            { "key": "page", "value": "1" },
+            { "key": "limit", "value": "10" }
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4000" },
+    { "key": "token", "value": "" },
+    { "key": "userId", "value": "" }
+  ]
+}
