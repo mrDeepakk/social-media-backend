@@ -1,79 +1,94 @@
-# Social Media Backend
+# Social Media Backend (Node + TypeScript + PostgreSQL + Prisma)
 
 ## Overview
 
-It supports authentication, a user follow graph, posting with media, and a personalized feed.
+A production-grade backend API for a social media application, built with Node.js, Express, TypeScript, Prisma, PostgreSQL, Cloudinary, and JWT Authentication.
+Implements a complete user graph, media posting, and personalized feed system.
 
-## Features
+## 🔥 Features
 
-- User signup & login (JWT)
-- Follow / Unfollow users
-- Followers & Following lists
-- Create posts (text + media via Cloudinary)
-- User posts & own posts
-- Feed from followed users + self (paginated)
-- Input validation using Zod
-- Secure middleware (Helmet, CORS, Rate Limiting)
-- Dockerized (Node + Postgres + Adminer)
+- ⚙️ Tech Stack: Node.js, TypeScript, Express.js, PostgreSQL, Prisma ORM
 
-## Tech Stack
+- 🔐 JWT Authentication (Signup & Login)
 
-- Node.js 18+
-- Express.js
-- TypeScript
-- PostgreSQL 15
-- Prisma ORM
-- JWT / bcrypt
-- Multer + Cloudinary
-- Zod
-- Helmet, CORS, express-rate-limit
-- Docker / docker-compose
+- 👥 Follow / Unfollow System
 
-## ER Diagram (Textual)
+- 📊 Followers & Following Lists
 
-- **User**
+- 📝 Create Posts (text + media)
 
-  - id (PK)
-  - name
-  - email (unique)
-  - password
-  - avatar
-  - createdAt
-  - updatedAt
+- 🖼️ Image Uploads using Cloudinary
 
-- **Post**
+- 📄 Get User Posts & Own Posts
 
-  - id (PK)
-  - userId (FK → User.id, onDelete: CASCADE)
-  - text (optional)
-  - mediaUrl (optional)
-  - createdAt
+- 📰 Personalized Feed (posts from following + self)
 
-- **Follow**
-  - id (PK)
-  - followerId (FK → User.id)
-  - followingId (FK → User.id)
-  - createdAt
-  - unique(followerId, followingId)
+- ⏳ Feed Pagination
 
-## Routes (API Spec)
+- 🛡️ Zod Validation for Request Bodies
 
-- `POST /auth/signup`
-- `POST /auth/login`
-- `POST /users/:id/follow`
-- `POST /users/:id/unfollow`
-- `GET /users/:id/followers`
-- `GET /users/:id/following`
-- `POST /posts` (form-data: text?, media?)
-- `GET /posts/me`
-- `GET /posts/user/:id`
-- `GET /feed?page=&limit=`
+- 🔒 Security with Helmet, CORS, Rate Limiting
 
-## Setup
+- 🐳 Dockerized for easy deployment
 
+- 🧪 Postman Collection Included
+
+- ⚡ Fast, clean, production-ready REST API
+
+## 🧩 API Endpoints
+🔐 Auth
+
+- POST /auth/signup
+
+- POST /auth/login
+
+👥 User Graph
+
+- POST /users/:id/follow
+
+- POST /users/:id/unfollow
+
+- GET /users/:id/followers
+
+- GET /users/:id/following
+
+📝 Posts
+
+- POST /posts – Create post (text + media)
+
+- GET /posts/me
+
+- GET /posts/user/:id
+
+📰 Feed
+
+- GET /feed?page=&limit= (paginated)
+
+### 🛠 Setup .env File
+```js
+PORT=4000
+JWT_SECRET=your_jwt_secret_here
+DATABASE_URL=postgresql://postgres:password@host:5432/dbname
+
+CLOUDINARY_CLOUD_NAME=your_cloud
+CLOUDINARY_API_KEY=your_key
+CLOUDINARY_API_SECRET=your_secret
+```
+
+### 🔌Setup
 ```bash
 git clone https://github.com/mrDeepakk/social-media-backend.git
 cd social-media-backend
 npm install
+```
+
+### 🗄️ Prisma Setup
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
+```
+
+### 🧪 Start Development Server
+```bash
 npm run dev
 ```
