@@ -1,18 +1,18 @@
 FROM node:18-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
+# Install dependencies
 COPY package*.json ./
 RUN npm install
 
-COPY tsconfig.json ./
-COPY prisma ./prisma
+# Copy all source code
+COPY . .
+
+# Generate Prisma client
 RUN npx prisma generate
-
-COPY src ./src
-
-RUN npm run build
 
 EXPOSE 4000
 
-CMD ["npm", "start"]
+# Run directly via ts-node (no build step)
+CMD ["npm", "run", "dev"]
